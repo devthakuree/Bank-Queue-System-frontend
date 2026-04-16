@@ -13,10 +13,9 @@ function PortalSelectionPage() {
     <section className="h-screen overflow-hidden bg-[#f7f9f8] px-4 py-6 md:px-8">
       <div className="mx-auto h-full w-full max-w-6xl">
       <header className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-full bg-gradient-to-br from-cyan-400 to-fuchsia-500" />
-          <span className="text-xl font-semibold italic text-slate-900">Q-Mate</span>
-        </div>
+        <NavLink to="/" className="text-xl font-semibold italic text-slate-900 hover:text-slate-700">
+          Q-Mate
+        </NavLink>
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
           <NavLink to="/" className={({ isActive }) => (isActive ? "border-b-2 border-emerald-500 pb-1 text-slate-900" : "")}>
             Home
