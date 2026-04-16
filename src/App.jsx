@@ -11,9 +11,10 @@ import "./App.scss";
 
 function App() {
   const location = useLocation();
+  const isAdminLoginPage = location.pathname === "/admin/login";
   const showSidebar =
     location.pathname.startsWith("/customer") ||
-    location.pathname.startsWith("/admin");
+    (location.pathname.startsWith("/admin") && !isAdminLoginPage);
 
   return (
     <div className={`app-shell ${showSidebar ? "with-sidebar" : "no-sidebar"}`}>
