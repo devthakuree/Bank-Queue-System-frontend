@@ -26,7 +26,7 @@ const infoSections = {
     {
       title: "Cash transactions",
       content:
-        "Fast deposit, withdrawal, and cheque services with priority handling for cash counters.",
+        "Fast deposit, withdrawal, and cheque services at dedicated cash counters.",
     },
     {
       title: "Account services",

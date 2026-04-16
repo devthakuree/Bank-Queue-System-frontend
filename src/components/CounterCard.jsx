@@ -13,11 +13,6 @@ function CounterCard({ counter, onCallNext, onComplete }) {
         </span>
       </div>
 
-      <p className="mt-4 text-sm text-slate-600">
-        <span className="font-semibold text-slate-700">Supports:</span>{" "}
-        {counter.supportedPriorities.join(", ")}
-      </p>
-
       {counter.currentToken ? (
         <div className="mt-4 rounded-2xl bg-emerald-50 p-4">
           <p className="text-sm font-semibold text-emerald-800">

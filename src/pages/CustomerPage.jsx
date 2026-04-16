@@ -131,7 +131,7 @@ function CustomerPage() {
                     <option value="">Choose a service</option>
                     {overview?.services?.map((service) => (
                       <option key={service._id} value={service._id}>
-                        {service.name} ({service.priorityLevel} priority)
+                        {service.name}
                       </option>
                     ))}
                   </select>

@@ -36,9 +36,6 @@ function TokenCard({ tokenData }) {
           <span className="font-semibold">Estimated Waiting Time:</span>{" "}
           {queueInfo.estimatedWaitingTime} minutes
         </div>
-        <div>
-          <span className="font-semibold">Priority:</span> {token.priorityLevel}
-        </div>
       </div>
       {token.counter ? (
         <div className="mt-3 text-sm text-slate-700">
