@@ -34,6 +34,7 @@ function App() {
               <LandingInfoPage
                 title="About Bank Queue"
                 description="This platform digitizes bank queues with secure token generation and organized customer flow."
+                sectionKey="about"
               />
             }
           />
@@ -43,6 +44,7 @@ function App() {
               <LandingInfoPage
                 title="Our Services"
                 description="Cash operations, account services, inquiry management, and smart queue scheduling."
+                sectionKey="services"
               />
             }
           />
@@ -52,6 +54,25 @@ function App() {
               <LandingInfoPage
                 title="Contact"
                 description="For support or onboarding, contact bank operations desk at your nearest branch."
+                sectionKey="contact"
+                contactCards={[
+                  {
+                    title: "Phone",
+                    value: "+1 (555) 123-4567",
+                  },
+                  {
+                    title: "Email",
+                    value: "support@bankqueue.com",
+                  },
+                  {
+                    title: "Hours",
+                    value: "Mon–Fri 8:00 AM – 6:00 PM",
+                  },
+                  {
+                    title: "Head Office",
+                    value: "123 Bank Street, Finance City",
+                  },
+                ]}
               />
             }
           />
