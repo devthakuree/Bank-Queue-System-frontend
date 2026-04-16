@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import AdminPage from "./pages/AdminPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import CustomerPage from "./pages/CustomerPage";
+import LandingInfoPage from "./pages/LandingInfoPage";
 import PortalSelectionPage from "./pages/PortalSelectionPage";
 import "./App.scss";
 
@@ -20,6 +21,33 @@ function App() {
       <main className={showSidebar ? "main-content dashboard-main" : "main-content"}>
         <Routes>
           <Route path="/" element={<PortalSelectionPage />} />
+          <Route
+            path="/about"
+            element={
+              <LandingInfoPage
+                title="About Bank Queue"
+                description="This platform digitizes bank queues with secure token generation and organized customer flow."
+              />
+            }
+          />
+          <Route
+            path="/services"
+            element={
+              <LandingInfoPage
+                title="Our Services"
+                description="Cash operations, account services, inquiry management, and smart queue scheduling."
+              />
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <LandingInfoPage
+                title="Contact"
+                description="For support or onboarding, contact bank operations desk at your nearest branch."
+              />
+            }
+          />
           <Route path="/customer" element={<CustomerPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route

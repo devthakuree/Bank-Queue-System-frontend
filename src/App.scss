@@ -15,6 +15,7 @@ $success: #16a34a;
 
 .app-shell.no-sidebar {
   display: block;
+  padding: 0;
 }
 
 .app-shell.with-sidebar {
@@ -192,6 +193,11 @@ $success: #16a34a;
   margin: 0 auto;
 }
 
+.app-shell.no-sidebar .main-content {
+  max-width: none;
+  padding: 0;
+}
+
 .dashboard-main {
   max-width: none;
   background: #f9fbfa;
@@ -333,7 +339,8 @@ th {
 }
 
 .nav-btn,
-button {
+.dashboard-main button,
+.login-card button {
   border: none;
   border-radius: 12px;
   font-weight: 700;
@@ -399,7 +406,8 @@ button {
   }
 }
 
-button {
+.dashboard-main button,
+.login-card button {
   width: 100%;
   box-sizing: border-box;
   padding: 12px 14px;
