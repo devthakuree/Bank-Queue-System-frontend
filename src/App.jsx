@@ -21,7 +21,7 @@ function App() {
       <main
         className={
           showSidebar
-            ? "min-h-[calc(100vh-40px)] rounded-3xl bg-[#f7f9f8] p-7 shadow-[0_14px_35px_rgba(15,23,42,0.08)]"
+            ? "h-[calc(100vh-40px)] overflow-hidden rounded-3xl bg-[#f7f9f8] p-7 shadow-[0_14px_35px_rgba(15,23,42,0.08)]"
             : "main-content"
         }
       >
