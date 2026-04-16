@@ -20,6 +20,9 @@ function Navbar() {
 
       <nav className="nav-links">
         <NavLink to="/" end>
+          Panel Selection
+        </NavLink>
+        <NavLink to="/customer">
           Customer Panel
         </NavLink>
         <NavLink to={isLoggedIn ? "/admin" : "/admin/login"}>Admin Panel</NavLink>

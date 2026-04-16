@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import CounterCard from "../components/CounterCard";
 import QueueTable from "../components/QueueTable";
@@ -11,6 +12,8 @@ import {
 } from "../services/api";
 
 function AdminPage() {
+  const [searchParams] = useSearchParams();
+  const view = searchParams.get("view") || "all";
   const [overview, setOverview] = useState(null);
   const [counters, setCounters] = useState([]);
   const [message, setMessage] = useState("");
@@ -66,39 +69,54 @@ function AdminPage() {
 
   return (
     <div className="admin-layout">
-      <div className="summary-grid">
-        <SummaryCard
-          title="Waiting"
-          value={overview?.summary?.totalWaiting ?? 0}
-          helperText="Pending tokens"
-        />
-        <SummaryCard
-          title="Serving"
-          value={overview?.summary?.totalServing ?? 0}
-          helperText="Active counter calls"
-        />
-        <SummaryCard
-          title="Completed"
-          value={overview?.summary?.totalCompleted ?? 0}
-          helperText="Finished service requests"
-        />
-      </div>
+      {(view === "all" || view === "overview") && (
+        <div className="summary-grid">
+          <SummaryCard
+            title="Waiting"
+            value={overview?.summary?.totalWaiting ?? 0}
+            helperText="Pending tokens"
+          />
+          <SummaryCard
+            title="Serving"
+            value={overview?.summary?.totalServing ?? 0}
+            helperText="Active counter calls"
+          />
+          <SummaryCard
+            title="Completed"
+            value={overview?.summary?.totalCompleted ?? 0}
+            helperText="Finished service requests"
+          />
+        </div>
+      )}
 
       {message ? <p className="success-text">{message}</p> : null}
       {error ? <p className="error-text">{error}</p> : null}
 
-      <div className="counter-grid">
-        {counters.map((counter) => (
-          <CounterCard
-            key={counter._id}
-            counter={counter}
-            onCallNext={handleCallNext}
-            onComplete={handleComplete}
-          />
-        ))}
-      </div>
+      {(view === "all" || view === "counters") && (
+        <div className="counter-grid">
+          {counters.map((counter) => (
+            <CounterCard
+              key={counter._id}
+              counter={counter}
+              onCallNext={handleCallNext}
+              onComplete={handleComplete}
+            />
+          ))}
+        </div>
+      )}
 
-      <QueueTable serviceQueues={overview?.serviceQueues || []} />
+      {(view === "all" || view === "services") && (
+        <QueueTable serviceQueues={overview?.serviceQueues || []} />
+      )}
+
+      {view !== "all" &&
+      view !== "overview" &&
+      view !== "counters" &&
+      view !== "services" ? (
+        <section className="card">
+          <p>Please select a valid admin view from the sidebar.</p>
+        </section>
+      ) : null}
     </div>
   );
 }
