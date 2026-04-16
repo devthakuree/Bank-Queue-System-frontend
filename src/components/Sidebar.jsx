@@ -23,9 +23,10 @@ function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/">Panel Select</NavLink>
-        <NavLink to="/customer">Customer</NavLink>
-        <NavLink to={loggedIn ? "/admin" : "/admin/login"}>Admin</NavLink>
+        {isCustomerPage ? <NavLink to="/customer">Customer Panel</NavLink> : null}
+        {isAdminPage ? (
+          <NavLink to={loggedIn ? "/admin" : "/admin/login"}>Admin Panel</NavLink>
+        ) : null}
       </nav>
 
       {isCustomerPage ? (
@@ -84,6 +85,10 @@ function Sidebar() {
           Logout
         </button>
       ) : null}
+
+      <Link to="/" className="back-select-link">
+        Back to panel selection
+      </Link>
     </aside>
   );
 }

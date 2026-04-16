@@ -88,84 +88,91 @@ function CustomerPage() {
   };
 
   return (
-    <div className={`page-grid ${view !== "all" ? "single-view" : ""}`}>
-      {(view === "all" || view === "token") && (
-        <section className="left-panel">
-          <div className="card">
-            <h2>Take a Token</h2>
-            <form onSubmit={handleSubmit} className="form-grid">
-              <div>
-                <label htmlFor="customerName">Customer Name</label>
-                <input
-                  id="customerName"
-                  name="customerName"
-                  value={formData.customerName}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
+    <div className="dashboard-frame">
+      <div className="dashboard-topbar card">
+        <h2>Customer Dashboard</h2>
+        <p>Generate your token and track live queue updates.</p>
+      </div>
 
-              <div>
-                <label htmlFor="serviceId">Select Service</label>
-                <select
-                  id="serviceId"
-                  name="serviceId"
-                  value={formData.serviceId}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Choose a service</option>
-                  {overview?.services?.map((service) => (
-                    <option key={service._id} value={service._id}>
-                      {service.name} ({service.priorityLevel} priority)
-                    </option>
-                  ))}
-                </select>
-              </div>
+      <div className={`page-grid ${view !== "all" ? "single-view" : ""}`}>
+        {(view === "all" || view === "token") && (
+          <section className="left-panel">
+            <div className="card">
+              <h2>Take a Token</h2>
+              <form onSubmit={handleSubmit} className="form-grid">
+                <div>
+                  <label htmlFor="customerName">Customer Name</label>
+                  <input
+                    id="customerName"
+                    name="customerName"
+                    value={formData.customerName}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
 
-              <button type="submit" disabled={loading}>
-                {loading ? "Generating Token..." : "Generate Digital Token"}
-              </button>
-            </form>
+                <div>
+                  <label htmlFor="serviceId">Select Service</label>
+                  <select
+                    id="serviceId"
+                    name="serviceId"
+                    value={formData.serviceId}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Choose a service</option>
+                    {overview?.services?.map((service) => (
+                      <option key={service._id} value={service._id}>
+                        {service.name} ({service.priorityLevel} priority)
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            {successMessage ? <p className="success-text">{successMessage}</p> : null}
-            {error ? <p className="error-text">{error}</p> : null}
-          </div>
+                <button type="submit" disabled={loading}>
+                  {loading ? "Generating Token..." : "Generate Digital Token"}
+                </button>
+              </form>
 
-          <TokenCard tokenData={tokenData} />
-        </section>
-      )}
+              {successMessage ? <p className="success-text">{successMessage}</p> : null}
+              {error ? <p className="error-text">{error}</p> : null}
+            </div>
 
-      {(view === "all" || view === "queue") && (
-        <section className="right-panel">
-          <div className="summary-grid">
-            <SummaryCard
-              title="Waiting"
-              value={overview?.summary?.totalWaiting ?? 0}
-              helperText="Customers currently in queue"
-            />
-            <SummaryCard
-              title="Serving"
-              value={overview?.summary?.totalServing ?? 0}
-              helperText="Tokens now being served"
-            />
-            <SummaryCard
-              title="Completed"
-              value={overview?.summary?.totalCompleted ?? 0}
-              helperText="Finished tokens today"
-            />
-          </div>
+            <TokenCard tokenData={tokenData} />
+          </section>
+        )}
 
-          <QueueTable serviceQueues={overview?.serviceQueues || []} />
-        </section>
-      )}
+        {(view === "all" || view === "queue") && (
+          <section className="right-panel">
+            <div className="summary-grid">
+              <SummaryCard
+                title="Waiting"
+                value={overview?.summary?.totalWaiting ?? 0}
+                helperText="Customers currently in queue"
+              />
+              <SummaryCard
+                title="Serving"
+                value={overview?.summary?.totalServing ?? 0}
+                helperText="Tokens now being served"
+              />
+              <SummaryCard
+                title="Completed"
+                value={overview?.summary?.totalCompleted ?? 0}
+                helperText="Finished tokens today"
+              />
+            </div>
 
-      {view !== "all" && view !== "token" && view !== "queue" ? (
-        <section className="card">
-          <p>Please select a valid customer view from the sidebar.</p>
-        </section>
-      ) : null}
+            <QueueTable serviceQueues={overview?.serviceQueues || []} />
+          </section>
+        )}
+
+        {view !== "all" && view !== "token" && view !== "queue" ? (
+          <section className="card">
+            <p>Please select a valid customer view from the sidebar.</p>
+          </section>
+        ) : null}
+      </div>
     </div>
   );
 }

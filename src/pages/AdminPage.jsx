@@ -68,55 +68,62 @@ function AdminPage() {
   };
 
   return (
-    <div className="admin-layout">
-      {(view === "all" || view === "overview") && (
-        <div className="summary-grid">
-          <SummaryCard
-            title="Waiting"
-            value={overview?.summary?.totalWaiting ?? 0}
-            helperText="Pending tokens"
-          />
-          <SummaryCard
-            title="Serving"
-            value={overview?.summary?.totalServing ?? 0}
-            helperText="Active counter calls"
-          />
-          <SummaryCard
-            title="Completed"
-            value={overview?.summary?.totalCompleted ?? 0}
-            helperText="Finished service requests"
-          />
-        </div>
-      )}
+    <div className="dashboard-frame">
+      <div className="dashboard-topbar card">
+        <h2>Admin Dashboard</h2>
+        <p>Monitor counters and control service flow in real time.</p>
+      </div>
 
-      {message ? <p className="success-text">{message}</p> : null}
-      {error ? <p className="error-text">{error}</p> : null}
-
-      {(view === "all" || view === "counters") && (
-        <div className="counter-grid">
-          {counters.map((counter) => (
-            <CounterCard
-              key={counter._id}
-              counter={counter}
-              onCallNext={handleCallNext}
-              onComplete={handleComplete}
+      <div className="admin-layout">
+        {(view === "all" || view === "overview") && (
+          <div className="summary-grid">
+            <SummaryCard
+              title="Waiting"
+              value={overview?.summary?.totalWaiting ?? 0}
+              helperText="Pending tokens"
             />
-          ))}
-        </div>
-      )}
+            <SummaryCard
+              title="Serving"
+              value={overview?.summary?.totalServing ?? 0}
+              helperText="Active counter calls"
+            />
+            <SummaryCard
+              title="Completed"
+              value={overview?.summary?.totalCompleted ?? 0}
+              helperText="Finished service requests"
+            />
+          </div>
+        )}
 
-      {(view === "all" || view === "services") && (
-        <QueueTable serviceQueues={overview?.serviceQueues || []} />
-      )}
+        {message ? <p className="success-text">{message}</p> : null}
+        {error ? <p className="error-text">{error}</p> : null}
 
-      {view !== "all" &&
-      view !== "overview" &&
-      view !== "counters" &&
-      view !== "services" ? (
-        <section className="card">
-          <p>Please select a valid admin view from the sidebar.</p>
-        </section>
-      ) : null}
+        {(view === "all" || view === "counters") && (
+          <div className="counter-grid">
+            {counters.map((counter) => (
+              <CounterCard
+                key={counter._id}
+                counter={counter}
+                onCallNext={handleCallNext}
+                onComplete={handleComplete}
+              />
+            ))}
+          </div>
+        )}
+
+        {(view === "all" || view === "services") && (
+          <QueueTable serviceQueues={overview?.serviceQueues || []} />
+        )}
+
+        {view !== "all" &&
+        view !== "overview" &&
+        view !== "counters" &&
+        view !== "services" ? (
+          <section className="card">
+            <p>Please select a valid admin view from the sidebar.</p>
+          </section>
+        ) : null}
+      </div>
     </div>
   );
 }
