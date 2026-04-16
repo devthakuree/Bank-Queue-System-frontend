@@ -98,18 +98,22 @@ function Sidebar() {
         ) : null}
       </nav>
 
-      <div className="mt-10 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-        General
-      </div>
+      {!isAdminPage ? (
+        <div className="mt-10 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+          General
+        </div>
+      ) : null}
 
       <div className="mt-3 grid gap-2 text-sm">
-        <Link
-          to="/"
-          className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
-        >
-          <span>🏠</span>
-          Home
-        </Link>
+        {!isAdminPage ? (
+          <Link
+            to="/"
+            className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
+          >
+            <span>🏠</span>
+            Home
+          </Link>
+        ) : null}
         {loggedIn ? (
           <button
             type="button"
