@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import CounterCard from "../components/CounterCard";
+import DashboardChart from "../components/DashboardChart";
 import DashboardTopbar from "../components/DashboardTopbar";
 import QueueTable from "../components/QueueTable";
 import SummaryCard from "../components/SummaryCard";
@@ -93,6 +94,12 @@ function AdminPage() {
               value={overview?.summary?.totalCompleted ?? 0}
               helperText="Finished service requests"
             />
+          </div>
+        )}
+
+        {(view === "all" || view === "overview") && (
+          <div className="mt-6">
+            <DashboardChart serviceQueues={overview?.serviceQueues || []} />
           </div>
         )}
 

@@ -24,11 +24,12 @@ function Sidebar() {
   return (
     <>
       <aside className="h-[calc(100vh-40px)] w-[260px] rounded-3xl bg-white p-6 shadow-[0_14px_35px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-2xl bg-emerald-600" />
-          <div>
-            <div className="text-base font-semibold text-slate-900">Bank Queue</div>
-            <div className="text-xs text-slate-400">Dashboard</div>
+        <div>
+          <div className="text-xl font-extrabold text-slate-900">
+            {isCustomerPage ? "Customer Dashboard" : "Admin Dashboard"}
+          </div>
+          <div className="mt-1 text-sm font-semibold uppercase tracking-wide text-slate-700">
+            {isCustomerPage ? "Customer Portal" : "Bank Queue"}
           </div>
         </div>
         <div className="mt-8 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
@@ -104,41 +105,46 @@ function Sidebar() {
           ) : null}
         </nav>
 
-        {!isAdminPage ? (
-          <div className="mt-10 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            General
-          </div>
-        ) : null}
-
-        <div className="mt-3 grid gap-2 text-sm">
-          {!isAdminPage ? (
-            <Link
-              to="/"
-              className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
-            >
-              <span>🏠</span>
-              Home
-            </Link>
-          ) : null}
-          {loggedIn ? (
+        {isCustomerPage ? (
+          <div className="mt-10 grid gap-2 text-sm">
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={() => navigate("/")}
               className="flex items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-600 hover:bg-slate-50"
             >
               <span>🚪</span>
               Logout
             </button>
-          ) : (
-            <Link
-              to={loggedIn ? "/admin" : "/admin/login"}
-              className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
-            >
-              <span>🔐</span>
-              Login
-            </Link>
-          )}
-        </div>
+          </div>
+        ) : null}
+
+        {isAdminPage ? (
+          <>
+            <div className="mt-10 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              General
+            </div>
+            <div className="mt-3 grid gap-2 text-sm">
+              {loggedIn ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  <span>🚪</span>
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to={loggedIn ? "/admin" : "/admin/login"}
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  <span>🔐</span>
+                  Login
+                </Link>
+              )}
+            </div>
+          </>
+        ) : null}
       </aside>
 
       {showLogoutDialog ? (

@@ -10,10 +10,10 @@ function QueueTable({ serviceQueues }) {
               Service
             </th>
             <th className="pb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Priority
+              Waiting
             </th>
             <th className="pb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Waiting
+              Customer
             </th>
             <th className="pb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
               Token Numbers
@@ -26,20 +26,12 @@ function QueueTable({ serviceQueues }) {
               <td className="py-4 pr-3 font-semibold text-slate-800">
                 {queue.serviceName}
               </td>
-              <td className="py-4 pr-3">
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                    queue.priorityLevel === "high"
-                      ? "bg-red-50 text-red-700"
-                      : queue.priorityLevel === "medium"
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-blue-50 text-blue-700"
-                  }`}
-                >
-                  {queue.priorityLevel}
-                </span>
-              </td>
               <td className="py-4 pr-3 text-slate-700">{queue.waitingCount}</td>
+              <td className="py-4 pr-3 text-slate-700">
+                {queue.waitingTokens.length
+                  ? queue.waitingTokens.map((token) => token.customerName).join(", ")
+                  : "No waiting customers"}
+              </td>
               <td className="py-4 text-slate-600">
                 {queue.waitingTokens.length
                   ? queue.waitingTokens.map((token) => token.tokenNumber).join(", ")
