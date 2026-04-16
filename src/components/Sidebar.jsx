@@ -16,79 +16,119 @@ function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-brand">
-        <h2>Bank Queue</h2>
-        <p>Dashboard</p>
+    <aside className="h-[calc(100vh-40px)] w-[260px] rounded-3xl bg-white p-6 shadow-[0_14px_35px_rgba(15,23,42,0.08)]">
+      <div className="flex items-center gap-3">
+        <div className="h-10 w-10 rounded-2xl bg-emerald-600" />
+        <div>
+          <div className="text-base font-semibold text-slate-900">Bank Queue</div>
+          <div className="text-xs text-slate-400">Dashboard</div>
+        </div>
       </div>
 
-      <nav className="sidebar-nav">
-        {isCustomerPage ? <NavLink to="/customer">Customer Panel</NavLink> : null}
+      <div className="mt-8 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+        Menu
+      </div>
+
+      <nav className="mt-3 grid gap-2 text-sm">
+        <NavLink
+          to={isCustomerPage ? "/customer?view=all" : "/admin?view=all"}
+          className={({ isActive }) =>
+            `flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold ${
+              isActive ? "bg-emerald-50 text-emerald-700" : "text-slate-600 hover:bg-slate-50"
+            }`
+          }
+          end={false}
+        >
+          <span>📊</span>
+          Dashboard
+        </NavLink>
+
+        {isCustomerPage ? (
+          <>
+            <Link
+              to="/customer?view=token"
+              className={`flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold ${
+                activeView === "token"
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span>🎫</span>
+              Token Form
+            </Link>
+            <Link
+              to="/customer?view=queue"
+              className={`flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold ${
+                activeView === "queue"
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span>📍</span>
+              Queue Status
+            </Link>
+          </>
+        ) : null}
+
         {isAdminPage ? (
-          <NavLink to={loggedIn ? "/admin" : "/admin/login"}>Admin Panel</NavLink>
+          <>
+            <Link
+              to="/admin?view=counters"
+              className={`flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold ${
+                activeView === "counters"
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span>🧾</span>
+              Counters
+            </Link>
+            <Link
+              to="/admin?view=services"
+              className={`flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold ${
+                activeView === "services"
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <span>🗂️</span>
+              Service Queue
+            </Link>
+          </>
         ) : null}
       </nav>
 
-      {isCustomerPage ? (
-        <div className="sidebar-section">
-          <p>Customer Views</p>
-          <Link
-            to="/customer?view=all"
-            className={activeView === "all" ? "active" : ""}
-          >
-            Full Dashboard
-          </Link>
-          <Link
-            to="/customer?view=token"
-            className={activeView === "token" ? "active" : ""}
-          >
-            Token Form
-          </Link>
-          <Link
-            to="/customer?view=queue"
-            className={activeView === "queue" ? "active" : ""}
-          >
-            Queue Status
-          </Link>
-        </div>
-      ) : null}
+      <div className="mt-10 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+        General
+      </div>
 
-      {isAdminPage ? (
-        <div className="sidebar-section">
-          <p>Admin Views</p>
-          <Link to="/admin?view=all" className={activeView === "all" ? "active" : ""}>
-            Full Dashboard
-          </Link>
-          <Link
-            to="/admin?view=overview"
-            className={activeView === "overview" ? "active" : ""}
+      <div className="mt-3 grid gap-2 text-sm">
+        <Link
+          to="/"
+          className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
+        >
+          <span>🏠</span>
+          Home
+        </Link>
+        {loggedIn ? (
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="flex items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-600 hover:bg-slate-50"
           >
-            Queue Overview
-          </Link>
+            <span>🚪</span>
+            Logout
+          </button>
+        ) : (
           <Link
-            to="/admin?view=counters"
-            className={activeView === "counters" ? "active" : ""}
+            to={loggedIn ? "/admin" : "/admin/login"}
+            className="flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold text-slate-600 hover:bg-slate-50"
           >
-            Counter Control
+            <span>🔐</span>
+            Login
           </Link>
-          <Link
-            to="/admin?view=services"
-            className={activeView === "services" ? "active" : ""}
-          >
-            Service Queue
-          </Link>
-        </div>
-      ) : null}
-
-      {loggedIn ? (
-        <button type="button" className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      ) : null}
-
-      <Link to="/" className="back-select-link">
-        Back to panel selection
-      </Link>
+        )}
+      </div>
     </aside>
   );
 }

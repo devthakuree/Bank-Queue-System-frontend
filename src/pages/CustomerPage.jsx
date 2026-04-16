@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import QueueTable from "../components/QueueTable";
+import DashboardTopbar from "../components/DashboardTopbar";
 import SummaryCard from "../components/SummaryCard";
 import TokenCard from "../components/TokenCard";
 import { createToken, getQueueOverview, getTokenStatus } from "../services/api";
@@ -88,37 +89,43 @@ function CustomerPage() {
   };
 
   return (
-    <div className="dashboard-frame">
-      <div className="dashboard-topbar card">
-        <h2>Customer Dashboard</h2>
-        <p>Generate your token and track live queue updates.</p>
-      </div>
+    <div>
+      <DashboardTopbar
+        title="Dashboard"
+        subtitle="Generate your token and track live queue updates."
+      />
 
-      <div className={`page-grid ${view !== "all" ? "single-view" : ""}`}>
+      <div className={`grid gap-6 ${view !== "all" ? "grid-cols-1" : "lg:grid-cols-2"}`}>
         {(view === "all" || view === "token") && (
-          <section className="left-panel">
-            <div className="card">
-              <h2>Take a Token</h2>
-              <form onSubmit={handleSubmit} className="form-grid">
+          <section className="grid gap-6">
+            <div className="rounded-3xl bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-slate-900">Take a Token</h2>
+              <form onSubmit={handleSubmit} className="mt-5 grid gap-4">
                 <div>
-                  <label htmlFor="customerName">Customer Name</label>
+                  <label className="text-sm font-semibold text-slate-800" htmlFor="customerName">
+                    Customer Name
+                  </label>
                   <input
                     id="customerName"
                     name="customerName"
                     value={formData.customerName}
                     onChange={handleChange}
                     placeholder="Enter your name"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="serviceId">Select Service</label>
+                  <label className="text-sm font-semibold text-slate-800" htmlFor="serviceId">
+                    Select Service
+                  </label>
                   <select
                     id="serviceId"
                     name="serviceId"
                     value={formData.serviceId}
                     onChange={handleChange}
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     required
                   >
                     <option value="">Choose a service</option>
@@ -130,13 +137,19 @@ function CustomerPage() {
                   </select>
                 </div>
 
-                <button type="submit" disabled={loading}>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="rounded-2xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800 disabled:opacity-60"
+                >
                   {loading ? "Generating Token..." : "Generate Digital Token"}
                 </button>
               </form>
 
-              {successMessage ? <p className="success-text">{successMessage}</p> : null}
-              {error ? <p className="error-text">{error}</p> : null}
+              {successMessage ? (
+                <p className="mt-4 text-sm font-semibold text-emerald-600">{successMessage}</p>
+              ) : null}
+              {error ? <p className="mt-4 text-sm font-semibold text-red-600">{error}</p> : null}
             </div>
 
             <TokenCard tokenData={tokenData} />
@@ -144,8 +157,8 @@ function CustomerPage() {
         )}
 
         {(view === "all" || view === "queue") && (
-          <section className="right-panel">
-            <div className="summary-grid">
+          <section className="grid gap-6">
+            <div className="grid gap-4 md:grid-cols-3">
               <SummaryCard
                 title="Waiting"
                 value={overview?.summary?.totalWaiting ?? 0}

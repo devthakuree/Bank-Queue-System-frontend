@@ -18,7 +18,13 @@ function App() {
   return (
     <div className={`app-shell ${showSidebar ? "with-sidebar" : "no-sidebar"}`}>
       {showSidebar ? <Sidebar /> : null}
-      <main className={showSidebar ? "main-content dashboard-main" : "main-content"}>
+      <main
+        className={
+          showSidebar
+            ? "min-h-[calc(100vh-40px)] rounded-3xl bg-[#f7f9f8] p-7 shadow-[0_14px_35px_rgba(15,23,42,0.08)]"
+            : "main-content"
+        }
+      >
         <Routes>
           <Route path="/" element={<PortalSelectionPage />} />
           <Route

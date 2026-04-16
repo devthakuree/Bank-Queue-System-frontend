@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import CounterCard from "../components/CounterCard";
+import DashboardTopbar from "../components/DashboardTopbar";
 import QueueTable from "../components/QueueTable";
 import SummaryCard from "../components/SummaryCard";
 import {
@@ -68,15 +69,15 @@ function AdminPage() {
   };
 
   return (
-    <div className="dashboard-frame">
-      <div className="dashboard-topbar card">
-        <h2>Admin Dashboard</h2>
-        <p>Monitor counters and control service flow in real time.</p>
-      </div>
+    <div>
+      <DashboardTopbar
+        title="Dashboard"
+        subtitle="Monitor counters and control service flow in real time."
+      />
 
-      <div className="admin-layout">
+      <div className="grid gap-6">
         {(view === "all" || view === "overview") && (
-          <div className="summary-grid">
+          <div className="grid gap-4 md:grid-cols-3">
             <SummaryCard
               title="Waiting"
               value={overview?.summary?.totalWaiting ?? 0}
@@ -99,7 +100,7 @@ function AdminPage() {
         {error ? <p className="error-text">{error}</p> : null}
 
         {(view === "all" || view === "counters") && (
-          <div className="counter-grid">
+          <div className="grid gap-4 lg:grid-cols-2">
             {counters.map((counter) => (
               <CounterCard
                 key={counter._id}
